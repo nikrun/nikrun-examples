@@ -155,7 +155,7 @@ type
       Console.SetCursorPosition(1, 1);
       Console.WriteStr('--- NIKRUN SNAKE OOP ---');
       Console.SetCursorPosition(1, 2);
-      Console.WriteStr('Score: ' + IntToStr(Score) + '   Pfeiltasten zum Steuern, X zum Beenden');
+      Console.WriteStr('Score: ' + IntToStr(Score) + '   Use arrow keys to move, X to exit');
     end;
 
     procedure Init;
@@ -243,6 +243,11 @@ type
     begin
       if IsRunning then
         Snake.Draw();
+
+      // Show score at the bottom
+      Console.SetCursorPosition(1, Height + 1);
+      Console.SetForegroundColor(ccWhite);
+      Console.WriteStr('Score: ' + IntToStr(Score) + '      ');
     end;
 
     procedure Run;
