@@ -1,31 +1,31 @@
 uses System;
 
 const 
-  CallCount = 500000;
+  FibN = 30;
   SieveSize = 10000;
   SortSize = 2000;
 
-// --- 1. Function Call Overhead ---
-function DummyAdd(a, b, c: Integer): Integer;
+// --- 1. Fibonacci (Call Overhead & Recursion) ---
+function Fib(n: Integer): Integer;
 begin
-  Result := a + b + c;
+  if n <= 1 then
+    Result := n
+  else
+    Result := Fib(n - 1) + Fib(n - 2);
 end;
 
-procedure RunCallOverhead;
-var 
-  i, sum: Integer;
+procedure RunFibonacci;
+var res: Integer;
 begin
-  PrintLn('--- 1. Function Call Overhead ---');
-  PrintLn('Calling a function ' + IntToStr(CallCount) + ' times...');
-  sum := 0;
-  for i := 1 to CallCount do
-    sum := sum + DummyAdd(1, 2, 3);
-  PrintLn('Result: ' + IntToStr(sum));
+  PrintLn('--- 1. Recursive Fibonacci ---');
+  PrintLn('Calculating Fib(' + IntToStr(FibN) + ')...');
+  res := Fib(FibN);
+  PrintLn('Result: ' + IntToStr(res));
   PrintLn('');
 end;
 
 // --- 2. Sieve of Eratosthenes (Array & Loops) ---
-type TSieveArray = array[1..10000] of Integer;
+type TSieveArray = array[1..SieveSize] of Integer;
 
 procedure RunSieve;
 var
@@ -63,29 +63,48 @@ begin
   PrintLn('');
 end;
 
-// --- 3. BubbleSort (Array Swaps) ---
+// --- 3. QuickSort (Recursion & Array Swaps) ---
 type TSortArray = array[1..2000] of Integer;
 
-procedure RunSort;
-var 
-  Arr: TSortArray;
-  i, j, temp: Integer;
+var Arr: TSortArray;
+
+procedure QuickSort(low, high: Integer);
+var
+  i, j, pivot, temp: Integer;
 begin
-  PrintLn('--- 3. BubbleSort ---');
+  if low < high then
+  begin
+    pivot := Arr[high];
+    i := low - 1;
+    for j := low to high - 1 do
+    begin
+      if Arr[j] < pivot then
+      begin
+        i := i + 1;
+        temp := Arr[i];
+        Arr[i] := Arr[j];
+        Arr[j] := temp;
+      end;
+    end;
+    temp := Arr[i + 1];
+    Arr[i + 1] := Arr[high];
+    Arr[high] := temp;
+    
+    QuickSort(low, i);
+    QuickSort(i + 2, high);
+  end;
+end;
+
+procedure RunSort;
+var i: Integer;
+begin
+  PrintLn('--- 3. QuickSort ---');
   PrintLn('Generating ' + IntToStr(SortSize) + ' random numbers...');
   for i := 1 to SortSize do
     Arr[i] := Random(10000);
     
   PrintLn('Sorting...');
-  
-  for i := 1 to SortSize do
-    for j := 1 to SortSize - i do
-      if Arr[j] > Arr[j + 1] then
-      begin
-        temp := Arr[j];
-        Arr[j] := Arr[j + 1];
-        Arr[j + 1] := temp;
-      end;
+  QuickSort(1, SortSize);
   
   PrintLn('Sort complete. First element: ' + IntToStr(Arr[1]) + ', Last element: ' + IntToStr(Arr[SortSize]));
   PrintLn('');
@@ -95,7 +114,7 @@ begin
   PrintLn('Starting Nikrun Benchmarks...');
   PrintLn('');
   
-  RunCallOverhead();
+  RunFibonacci();
   RunSieve();
   RunSort();
   
