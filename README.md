@@ -10,6 +10,8 @@ This repository contains a collection of example scripts written in Pascal for N
 - **`04_guess_the_number.pas`**: A simple interactive game showcasing random number generation and user input.
 - **`05_treasure_hunt.pas`**: A more advanced game logic example with state management.
 - **`06_snake_game.pas`**: A full console-based implementation of the classic Snake game utilizing the interactive CLI features.
+- **`07_tetris_game.pas`**: A fully functional Tetris game using classes and the Console unit.
+- **`08_benchmarks.pas`**: A collection of standard computer science algorithms (Fibonacci, Sieve of Eratosthenes, QuickSort) used for testing interpreter performance.
 
 ## How to Run
 

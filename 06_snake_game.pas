@@ -186,25 +186,18 @@ type
 
     procedure HandleInput;
     begin
-      if Console.KeyAvailable() then
-      begin
+      if Console.KeyAvailable() then begin
         key := Console.ReadKey();
-        if key = Chr(27) then // ESC für Sondertasten
-        begin
-          var k1: String;
-          var k2: String;
+        if key = #27 then begin // ESC für Sondertasten
+          if (Console.ReadKey() = '[') then begin
+            var k2 := Console.ReadKey(); // A/B/C/D
 
-          k1 := Console.ReadKey(); // sollte [
-          k2 := Console.ReadKey(); // A/B/C/D
-          if (k1 = '[') then
-          begin
             if k2 = 'A' then Snake.SetDirection(0, -1); // Pfeil hoch
             if k2 = 'B' then Snake.SetDirection(0, 1);  // Pfeil runter
             if k2 = 'C' then Snake.SetDirection(1, 0);  // Pfeil rechts
             if k2 = 'D' then Snake.SetDirection(-1, 0); // Pfeil links
           end;
-        end
-        else if key = 'x' then
+        end else if key = 'x' then
           IsRunning := false;
       end;
     end;
