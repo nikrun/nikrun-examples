@@ -23,6 +23,14 @@ type
   end;
 
 type
+  TDirection = enum (
+    dirNone,
+    dirUp,
+    dirDown,
+    dirLeft,
+    dirRight
+  );
+
   TIntArray = array[1..400] of Integer;
 
   TSnake = class
@@ -30,8 +38,7 @@ type
     var bodyX: TIntArray;
     var bodyY: TIntArray;
     var len: Integer;
-    var dx: Integer;
-    var dy: Integer;
+    var dir: TDirection;
     var oldTailX: Integer;
     var oldTailY: Integer;
     var i: Integer;
@@ -45,19 +52,17 @@ type
 	  bodyY[2] := startY;
       bodyX[3] := startX - 2;
 	  bodyY[3] := startY;
-      dx := 1;
-      dy := 0;
+      dir := dirRight;
     end;
 
-    procedure SetDirection(newDx, newDy: Integer);
+    procedure SetDirection(newDir: TDirection);
     begin
-      if (dx = 1) and (newDx = -1) then Exit;
-      if (dx = -1) and (newDx = 1) then Exit;
-      if (dy = 1) and (newDy = -1) then Exit;
-      if (dy = -1) and (newDy = 1) then Exit;
+      if (dir = dirRight) and (newDir = dirLeft) then Exit;
+      if (dir = dirLeft) and (newDir = dirRight) then Exit;
+      if (dir = dirDown) and (newDir = dirUp) then Exit;
+      if (dir = dirUp) and (newDir = dirDown) then Exit;
 
-      dx := newDx;
-      dy := newDy;
+      dir := newDir;
     end;
 
     procedure Move;
@@ -71,8 +76,10 @@ type
         bodyY[i] := bodyY[i-1];
       end;
 
-      bodyX[1] := bodyX[1] + dx;
-      bodyY[1] := bodyY[1] + dy;
+      if dir = dirRight then bodyX[1] := bodyX[1] + 1;
+      if dir = dirLeft then bodyX[1] := bodyX[1] - 1;
+      if dir = dirUp then bodyY[1] := bodyY[1] - 1;
+      if dir = dirDown then bodyY[1] := bodyY[1] + 1;
     end;
 
     procedure Grow;
@@ -192,10 +199,10 @@ type
           if (Console.ReadKey() = '[') then begin
             var k2 := Console.ReadKey(); // A/B/C/D
 
-            if k2 = 'A' then Snake.SetDirection(0, -1); // Pfeil hoch
-            if k2 = 'B' then Snake.SetDirection(0, 1);  // Pfeil runter
-            if k2 = 'C' then Snake.SetDirection(1, 0);  // Pfeil rechts
-            if k2 = 'D' then Snake.SetDirection(-1, 0); // Pfeil links
+            if k2 = 'A' then Snake.SetDirection(dirUp); // Pfeil hoch
+            if k2 = 'B' then Snake.SetDirection(dirDown);  // Pfeil runter
+            if k2 = 'C' then Snake.SetDirection(dirRight);  // Pfeil rechts
+            if k2 = 'D' then Snake.SetDirection(dirLeft); // Pfeil links
           end;
         end else if key = 'x' then
           IsRunning := false;
