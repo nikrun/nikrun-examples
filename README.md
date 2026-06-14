@@ -12,6 +12,8 @@ This repository contains a collection of example scripts written in Pascal for N
 - **`06_snake_game.pas`**: A full console-based implementation of the classic Snake game utilizing the interactive CLI features.
 - **`07_tetris_game.pas`**: A fully functional Tetris game using classes and the Console unit.
 - **`08_benchmarks.pas`**: A collection of standard computer science algorithms (Fibonacci, Sieve of Eratosthenes, QuickSort) used for testing interpreter performance.
+- **`09_http_server.pas`**: Demonstrates setting up an HTTP server handler in Pascal.
+- **`10_managed_classes.pas`**: Demonstrates the new `managed class` type, automatic scope-based lifetime management, nameless constructors/destructors, inheritance, and return-value protection.
 
 ## How to Run
 
