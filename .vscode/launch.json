@@ -1,0 +1,11 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "nikrun",
+      "request": "launch",
+      "name": "Debug Pascal Script",
+      "program": "${file}"
+    }
+  ]
+}
