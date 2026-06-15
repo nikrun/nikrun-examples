@@ -77,7 +77,6 @@ begin
     pivot := Arr[high];
     i := low - 1;
     for j := low to high - 1 do
-    begin
       if Arr[j] < pivot then
       begin
         i := i + 1;
@@ -85,7 +84,7 @@ begin
         Arr[i] := Arr[j];
         Arr[j] := temp;
       end;
-    end;
+
     temp := Arr[i + 1];
     Arr[i + 1] := Arr[high];
     Arr[high] := temp;
