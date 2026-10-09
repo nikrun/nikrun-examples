@@ -1,4 +1,4 @@
-uses '../nikrun-cli/stdlib/Console.pas';
+uses '../nikrun-cli/stdlib/Console.pas', System;
 
 type
   TBoardArray = array[1..200] of Integer;
