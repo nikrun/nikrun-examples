@@ -8,12 +8,12 @@ type
     constructor;
     begin
       FParentName := 'Parent';
-      PrintLn('  -> TParent.constructor (FParentName initialisiert auf: ', FParentName, ')');
+      PrintLn('  -> TParent.constructor (FParentName initialisiert auf: ' + FParentName + ')');
     end;
 
     destructor;
     begin
-      PrintLn('  -> TParent.destructor (FParentName war: ', FParentName, ')');
+      PrintLn('  -> TParent.destructor (FParentName war: ' + FParentName + ')');
     end;
 
     property ParentName: String read FParentName write FParentName;
@@ -28,12 +28,12 @@ type
     begin
       // Implizit wird hier zuerst TParent.constructor ausgeführt.
       FChildAge := 18;
-      PrintLn('  -> TChild.constructor (FChildAge initialisiert auf: ', FChildAge, ')');
+      PrintLn('  -> TChild.constructor (FChildAge initialisiert auf: ' + IntToStr(FChildAge) + ')');
     end;
 
     destructor;
     begin
-      PrintLn('  -> TChild.destructor (FChildAge war: ', FChildAge, ')');
+      PrintLn('  -> TChild.destructor (FChildAge war: ' + IntToStr(FChildAge) + ')');
       inherited; // Ruft den Destruktor der Elternklasse auf
     end;
 
@@ -59,7 +59,7 @@ begin
   
   childObj.ChildAge := 42;
   
-  PrintLn('Erstzugriff abgeschlossen. ChildAge: ', childObj.ChildAge);
+  PrintLn('Erstzugriff abgeschlossen. ChildAge: ' + IntToStr(childObj.ChildAge));
   PrintLn('Ende der Prozedur TestScopeLifetime.');
 end;
 
@@ -71,7 +71,7 @@ begin
   PrintLn('Rufe CreateChildInstance auf...');
   retObj := CreateChildInstance(25);
   
-  PrintLn('Rückgabewert erhalten. retObj.ChildAge: ', retObj.ChildAge);
+  PrintLn('Rückgabewert erhalten. retObj.ChildAge: ' + IntToStr(retObj.ChildAge));
   PrintLn('Ende der Prozedur TestReturnValueProtection.');
 end;
 
